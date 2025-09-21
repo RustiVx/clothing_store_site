@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Base{% endblock %}</title>
+    <style>
+        /* Логотип слева-вверху */
+        img#logo {
+            width: 100px;          /* Размер логотипа */
+            height: auto;           /* Пропорциональный масштаб */
+            position: absolute;    /* Абсолютная позиция */
+            top: 10px;             /* Верхний отступ */
+            left: 10px;            /* Левый отступ */
+            z-index: -1;
+        }
+
+        /* Волны сверху страницы */
+        img#waves {
+            width: 100%;           /* Заполняют всю ширину страницы */
+            height: auto;          /* Сохраняют пропорции */
+            position: absolute;    /* Абсолюта позиционная привязка */
+            top: 0;                /* Точно сверху страницы */
+            z-index: -1;           /* Под текстом и элементами */
+        }
+
+        /* Песок внизу страницы */
+        img#sand {
+            width: 100%;           /* Заполняют всю ширину страницы */
+            height: auto;          /* Сохраняют пропорции */
+            position: absolute;    /* Абсолюта позиционная привязка */
+            bottom: 0;                /* Точно снизу страницы */
+            z-index: -1;
+        }
+
+        /* Навигация по центру страницы */
+        li.navigation2 {
+            display: inline-block; /* Чтобы выстроились в ряд */
+            font-size: 16px;       /* Размер шрифта пунктов меню */
+            padding: 14px 16px;    /* Внутренние отступы */
+        }
+
+        body {
+            position: relative;    /* Необходимо для абсолютного позиционирования */
+            min-height: 100vh;     /* Высота минимум на весь экран */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Навигация -->
+    {% block navigation %}
+    <ul>
+        <li class="navigation2"><a href="/">Главная страница</a></li>
+        <li class="navigation2"><a href="/category">Категории</a></li>
+        <li class="navigation2"><a href="/news">Новости/блоги</a></li>
+        <li class="navigation2"><a href="/aboutus">О нас</a></li>
+        <li class="navigation2"><a href="/personalacc">Личный кабинет</a></li>
+    </ul>
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+
+
+    {% block images %}
+    <img id="logo" src="{{'static\img\logo.jpg'}}" alt="Logo">
+    <img id="waves" src="{{'static\img\waves.jpg' }}" alt="Waves">
+    <img id="sand" src="{{'static\img\sand.jpg'}}" alt="Sand">
+    {% endblock %}
+</body>
+</html>
