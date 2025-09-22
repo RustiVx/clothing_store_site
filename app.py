@@ -1,11 +1,26 @@
 from flask import Flask
 from flask import render_template
+import sqlite3
+
 
 app = Flask(__name__)
 
+connection = sqlite3.connect('maindata.db', check_same_thread=False)
+cursor = connection.cursor()
+
+def product():
+    listDB = cursor.execute('SELECT * FROM product')
+    return listDB.fetchall()
+
+def productindex():
+    listDB = cursor.execute('SELECT * FROM product LIMIT 12')
+    return listDB.fetchall()
+
 @app.route('/')
 def index():
-    return render_template('main_page.html')
+    shop = productindex()
+    connection.close
+    return render_template('index.html', shop = shop)
 
 @app.route('/news')
 def news_and_blog():
