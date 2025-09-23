@@ -79,9 +79,9 @@
     {% endblock %}
 
     {% block images %}
-    <img id="logo" src="{{'static/img/logo.jpg'}}" alt="Logo">
-    <img id="waves" src="{{'static/img/waves.jpg'}}" alt="Waves">
-    <img id="sand" src="{{'static/img/sand.jpg'}}" alt="Sand">
+    <img id="logo" src="{{ url_for('static', filename='img/logo.jpg') }}" alt="Logo">
+    <img id="waves" src="{{ url_for('static', filename='img/waves.jpg') }}" alt="Waves">
+    <img id="sand" src="{{ url_for('static', filename='img/sand.jpg') }}" alt="Sand">
     {% endblock %}
 </body>
 </html>

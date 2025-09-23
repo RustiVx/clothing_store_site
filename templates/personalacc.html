@@ -1,28 +1,53 @@
-{% extends 'base_search_styles_img.html' %}
+{%- extends 'base_search_styles_img.html' %}
 
 {%- block title %}
-    CHAPA | Аккаунт {{name}}
+    CHAPA | Личный кабинет
 {%- endblock %}
 
-    {% block content %}
+{%- block content %}
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fafafa;
+        }
+        form {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,.1);
+        }
+        input[type="text"] {
+            width: 200px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            color: white;
+            background-color: blue;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 
-    <p style="padding: 80px; font-size: 36px;">Привет {{name}}, пора заказывать одежду! йоу.</p>
-    {%
-        set age = 20
+    <form method="POST">
+        <h1>Введите ваше имя</h1>
+        <input type="text" name="user" placeholder="Ваше имя..." required>
+        <button type="submit">Авторизация</button>
+    </form>
 
-    %}
-
-    <p style="font-size:25px">Возраст {{age}}</p>
-
-    {% if page %}
-    <p style="font-size:25px">Вы зарегистрированы</p>
-    {% else %}
-    <p style="font-size:25px">Вы не зарегистрированы</p>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% elif user %}
+        <div class="card">
+            <h2>{{ user[1] }}</h2>  <!-- Имя пользователя -->
+            <p>Возраст: {{ user[2] }}</p>  <!-- Возраст -->
+            <p>Телефон: {{ user[3] }}</p>  <!-- Номер телефона -->
+        </div>
     {% endif %}
-
-    {% set user_list = ["Tim", "Terry", "Spike"]%}
-    {% for user in user_list %}
-    <p> {{user}}</p>
-    {%endfor%}
-
-    {% endblock %}
+{%- endblock %}

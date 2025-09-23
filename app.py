@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import render_template
+from flask import request
 import sqlite3
 
 
@@ -8,13 +9,17 @@ app = Flask(__name__)
 connection = sqlite3.connect('maindata.db', check_same_thread=False)
 cursor = connection.cursor()
 
-def product():
+def product_catg():
     listDB = cursor.execute('SELECT * FROM product')
     return listDB.fetchall()
 
 def productindex():
     listDB = cursor.execute('SELECT * FROM product LIMIT 12')
     return listDB.fetchall()
+
+def accounts():
+    cursor.execute('SELECT * FROM account')
+    return cursor.fetchall()
 
 @app.route('/')
 def index():
@@ -33,22 +38,33 @@ def category():
 @app.route('/aboutus')
 def about_us():
     return render_template('aboutus.html')
-
-@app.route('/personalacc')
+    
+@app.route('/personalacc', methods=['GET', 'POST'])
 def personal_account():
-    return render_template('personalacc.html')
-
-@app.route('/personalacc/<username>')
-def personal_account_user(username):
-    return render_template('personalacc.html', name=username)
+    user = None
+    error = None
+    
+    if request.method == 'POST':
+        name = request.form['user']
+        
+        all_users = accounts()
+        
+        user = next((u for u in all_users if u[1].lower() == name.lower()), None)
+        
+        if not user:
+            error = 'Пользователь не найден'
+    
+    return render_template('personalacc.html', user=user, error=error)
 
 @app.route('/category/girlscl')
 def girls_clothing():
-    return render_template('category_girlscl.html')
+    shop = product_catg()
+    return render_template('category_girlscl.html', shop = shop)
 
 @app.route('/category/boyscl')
 def boys_clothing():
-    return render_template('category_boysscl.html')
+    shop = product_catg()
+    return render_template('category_boysscl.html', shop = shop)
 
 @app.route('/category/girls.shoes')
 def  girls_shoes():
