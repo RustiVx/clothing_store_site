@@ -15,7 +15,7 @@
             <h3>{{ item[1] }}</h3>
             <p>Для роста: {{ item[5] }}</p>
             <p class="price">Цена: {{ item[3] }} ₽</p>
-            <button>Купить</button>
+            <button onclick="location.href='{{ url_for('shop') }}?id={{ item[0] }}'">Купить</button>
         </div>
         {% endfor %}
     </div>

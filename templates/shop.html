@@ -1,0 +1,29 @@
+{%- extends 'base_search_styles_img.html' %}
+
+{%- block title %}
+    CHAPA | Оформление
+{%- endblock %}
+
+{%- block content %}
+<div class="card" style="max-width: 400px; margin: 50px auto;">
+    <img src="{{ url_for('static', filename='img/' ~ product[4]) }}" alt="{{ product[1] }}" style="border-radius: 8px; width: 100%; height: auto; margin-bottom: 12px;">
+    <h3 style="font-size: 24px; margin: 8px 0;">{{ product[1] }}</h3>
+    <p style="font-size: 16px; margin: 4px 0;">Для роста: {{ product[5] }}</p>
+    <p class="price" style="font-weight: bold; margin: 12px 0; font-size: 20px; color: #0077cc;">{{ product[3] }} ₽</p>
+
+    <form method="POST" style="margin-top: 30px; display: flex; flex-direction: column; gap: 12px;">
+        <input type="text" name="name" placeholder="Ваше имя" required style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+        <input type="tel" name="phone" placeholder="Телефон" required pattern="[\d\s\+\-\(\)]{7,}" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc;">
+        <textarea name="comment" placeholder="Комментарий к заказу" style="padding: 10px; font-size: 16px; border-radius: 8px; border: 1px solid #ccc; resize: vertical;"></textarea>
+        <button type="submit" style="background-color: #0077cc; color: white; border: none; border-radius: 8px; padding: 12px; font-size: 18px; cursor: pointer;">
+            Оформить заказ
+        </button>
+    </form>
+
+    {% if message %}
+    <div class="message" style="color: green; text-align: center; margin-top: 20px; font-size: 18px;">
+        {{ message }}
+    </div>
+    {% endif %}
+</div>
+{%- endblock %}
